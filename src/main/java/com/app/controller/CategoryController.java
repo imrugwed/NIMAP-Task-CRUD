@@ -32,7 +32,7 @@ public class CategoryController {
         Long id = categoryService.saveCategory(category).getId();
 
         Map<String, Object> response = new HashMap<>();
-        response.put("message", "Saved Successfully");
+        response.put("message", "Category Saved Successfully");
         response.put("id", id);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
@@ -62,7 +62,7 @@ public class CategoryController {
         try {
             Category cat = categoryService.updateCategory(id, category);
 //            response.put("category", cat);
-            response.put("message", "Updated Successfully");
+            response.put("message", "Category Updated Successfully");
 
             return ResponseEntity.ok(response);
         } catch (NotFoundException e) {
@@ -79,7 +79,7 @@ public class CategoryController {
         Map<String, Object> response = new HashMap<>();
         try {
             categoryService.deleteCategory(id);
-            response.put("message", "Category deleted successfully");
+            response.put("message", "Category Deleted Successfully");
             response.put("status", HttpStatus.OK.value());
 
             return ResponseEntity.ok(response);

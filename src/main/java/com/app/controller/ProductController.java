@@ -32,7 +32,7 @@ public class ProductController {
         Long id = productService.saveProduct(product).getId();
 
         Map<String, Object> response = new HashMap<>();
-        response.put("message", "Saved Successfully");
+        response.put("message", "Product Saved Successfully");
         response.put("id", id);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
@@ -62,7 +62,7 @@ public class ProductController {
         try {
             Product pro = productService.updateProduct(id, updatedProduct);
 //            response.put("Product", pro);
-            response.put("message", "Updated Successfully");
+            response.put("message", "Product Updated Successfully");
 
             return ResponseEntity.ok(response);
         } catch (NotFoundException e) {
@@ -79,7 +79,7 @@ public class ProductController {
         Map<String, Object> response = new HashMap<>();
         try {
             productService.deleteProduct(id);
-            response.put("message", "Product deleted successfully");
+            response.put("message", "Product Deleted Successfully");
             response.put("status", HttpStatus.OK.value());
 
             return ResponseEntity.ok(response);

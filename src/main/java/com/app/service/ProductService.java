@@ -1,49 +1,16 @@
 package com.app.service;
 
 import com.app.entity.Product;
-import com.app.other.NotFoundException;
-import com.app.repo.ProductRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.stereotype.Service;
 
-import java.util.List;
+public interface ProductService {
+    Page<Product> getAllProducts(int page, int size);
 
-@Service
-public class ProductService {
+    Product saveProduct(Product product);
 
-    @Autowired
-    private ProductRepository productRepository;
+    Product getProductById(Long id);
 
-    // Get all products with pagination
-    public Page<Product> getAllProducts(int page, int size) {
-        return productRepository.findAll(PageRequest.of(page, size));
-    }
+    Product updateProduct(Long id, Product updatedProduct);
 
-    // Create a new product
-    public Product saveProduct(Product product) {
-        return productRepository.save(product);
-    }
-
-    // Get product by ID
-    public Product getProductById(Long id) {
-        return productRepository.findById(id).orElseThrow(() -> new NotFoundException(id, "Product"));
-    }
-
-    // Update product by ID
-    public Product updateProduct(Long id, Product updatedProduct) {
-        Product product = getProductById(id);
-        product.setName(updatedProduct.getName());
-        product.setPrice(updatedProduct.getPrice());
-        product.setCategory(updatedProduct.getCategory());
-//        product.setCategory_id(updatedProduct.getCategory_id());
-        return productRepository.save(product);
-    }
-
-    // Delete product by ID
-    public void deleteProduct(Long id) {
-        Product product = getProductById(id);
-        productRepository.delete(product);
-    }
+    void deleteProduct(Long id);
 }
