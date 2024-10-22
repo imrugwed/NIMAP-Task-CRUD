@@ -29,11 +29,18 @@ public class ProductController {
     // Create a new product
     @PostMapping
     public ResponseEntity<Map<String, Object>> createCategory(@RequestBody Product product) {
-        Long id = productService.saveProduct(product).getId();
-
         Map<String, Object> response = new HashMap<>();
-        response.put("message", "Product Saved Successfully");
-        response.put("id", id);
+        try {
+            Long id = productService.saveProduct(product).getId();
+
+            response.put("message", "Product Saved Successfully");
+            response.put("id", id);
+        } catch (NotFoundException e) {
+            response.put("message", e.getMessage());
+            response.put("status", HttpStatus.NOT_FOUND);
+
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+        }
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
